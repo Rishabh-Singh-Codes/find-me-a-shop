@@ -10,4 +10,14 @@ const addShop = async (newShop: ShopType) => {
   return shop;
 };
 
-export default { addShop };
+const getAllShops = async () => {
+  const shops = await Shop.find().select("-categories").sort("-lastUpdatedAt");
+  return shops;
+};
+
+const getShopDetails = async (shopId: string) => {
+  const shopDetails = await Shop.findById(shopId);
+  return shopDetails;
+};
+
+export default { addShop, getAllShops, getShopDetails };

@@ -20,32 +20,36 @@ const MainLayout = ({ children }: Props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { isError, isSuccess } = useQuery("validateToken", apiClient.validateToken, {
-    retry: false,
-  });
+  const { isError, isSuccess } = useQuery(
+    "validateToken",
+    apiClient.validateToken,
+    {
+      retry: false,
+    }
+  );
 
   useEffect(() => {
-    console.log('isSuccess', isSuccess)
-    console.log('isError', isError)
+    console.log("isSuccess", isSuccess);
+    console.log("isError", isError);
     if (isError) {
-        console.log("inside if isError")
-        dispatch(setUserLoggedOut());
+      console.log("inside if isError");
+      dispatch(setUserLoggedOut());
     }
 
-    if(isSuccess) {
-        console.log("inside if isSuccess")
-        dispatch(setUserLoggedIn());
+    if (isSuccess) {
+      console.log("inside if isSuccess");
+      dispatch(setUserLoggedIn());
     }
   }, [dispatch, isError, isSuccess]);
 
-  const isRegisterOrLoginPage = ["/register", "/login"].includes(
+  const isRegisterOrLoginPage = ["/register", "/sign-in"].includes(
     location.pathname
   );
 
   return (
     <div className="flex flex-col min-h-screen text-teal-900">
       <Header />
-      {!isRegisterOrLoginPage && <Hero />}
+      {/* {!isRegisterOrLoginPage && <Hero />} */}
       <div className="container flex-1 mx-auto">
         {toast && (
           <Toast

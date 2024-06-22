@@ -72,7 +72,7 @@ const Register = () => {
             <div className="h-2">
               {errors.firstName && (
                 <span className={"text-rose-500 text-sm mt-1"}>
-                  {errors?.firstName?.message}
+                  {errors.firstName.message}
                 </span>
               )}
             </div>

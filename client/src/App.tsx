@@ -7,6 +7,8 @@ import {
 import MainLayout from "./layouts/MainLayout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import Home from "./pages/Home";
+import ShopDetails from "./pages/ShopDetails";
 
 function App() {
   return (
@@ -16,19 +18,18 @@ function App() {
           path="/"
           element={
             <MainLayout>
-              {/* <Home /> */}
-              <span>Home</span>
+              <Home />
             </MainLayout>
           }
         />
-        {/* <Route
-          path="/detail/:hotelId"
+        <Route
+          path="/detail/:shopId"
           element={
             <MainLayout>
-              <HotelDetails />
+              <ShopDetails />
             </MainLayout>
           }
-        /> */}
+        />
         <Route
           path="/register"
           element={

@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { RootStateType } from "../store/store";
+import SignOutButton from "./SignOutButton";
 
 const Header = () => {
     const location = useLocation();
     const isLoggedIn = useSelector((state: RootStateType) => state.auth.isLoggedIn)
 
-    const isRegisterOrLoginPage = ["/register", "/login"].includes(
+    const isRegisterOrLoginPage = ["/register", "/sign-in"].includes(
       location.pathname
     );
 
@@ -25,7 +26,7 @@ const Header = () => {
                 >
                   My Orders
                 </Link>
-                {/* <SignOutButton /> */}
+                <SignOutButton />
               </>
             ) : (
           <Link
