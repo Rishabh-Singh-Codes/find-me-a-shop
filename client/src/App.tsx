@@ -9,8 +9,14 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import ShopDetails from "./pages/ShopDetails";
+import { useSelector } from "react-redux";
+import { RootStateType } from "./store/store";
+import Cart from "./pages/Cart";
 
 function App() {
+  const isLoggedIn = useSelector(
+    (state: RootStateType) => state.auth.isLoggedIn
+  );
   return (
     <Router>
       <Routes>
@@ -46,6 +52,18 @@ function App() {
             </MainLayout>
           }
         />
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/cart"
+              element={
+                <MainLayout>
+                  <Cart />
+                </MainLayout>
+              }
+            />
+          </>
+        )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

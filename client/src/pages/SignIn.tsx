@@ -3,7 +3,7 @@ import z from "zod";
 import { loginUserSchema } from "../../../shared/validation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LOGIN_BG } from "../utils/constants";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { useDispatch } from "react-redux";
@@ -15,6 +15,9 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromLocation = location?.state?.from || "/";
+  console.log('fromLocation', fromLocation, location)
 
   const {
     register,
@@ -35,7 +38,7 @@ const SignIn = () => {
       );
 
       await queryClient.invalidateQueries("validateToken");
-      navigate("/");
+      navigate(fromLocation);
     },
     onError: (error: Error) => {
       console.log(error);
@@ -59,7 +62,7 @@ const SignIn = () => {
         className="w-4/5 md:w-1/2 mx-auto bg-teal-950/90 flex flex-col px-8 md:px-16 rounded-2xl pt-8 relative"
         onSubmit={onSubmit}
       >
-        <h2 className="text-white text-3xl font-bold mb-4">Sign-In</h2>
+        <h2 className="text-white text-3xl font-bold mb-4">Sign In</h2>
         <div className="flex flex-col flex-1">
           <label className="text-white text-sm font-bold flex flex-col mb-5">
             Email
@@ -96,7 +99,7 @@ const SignIn = () => {
           <span className="flex flex-col md:flex-row items-center justify-between py-10">
             <span className="text-sm text-white md:flex flex-col">
               Not registered?{" "}
-              <Link to="/register" className="underline">
+              <Link to="/register" state={{from: fromLocation}} className="underline">
                 Create an Account ↗
               </Link>
             </span>

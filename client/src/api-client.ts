@@ -1,6 +1,7 @@
+import { PaymentIntentResponse } from "../../shared/validation/shop";
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { ShopType } from "./utils/types";
+import { CartItemType, ShopType } from "./utils/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -84,3 +85,26 @@ export const getShopDetails = async (shopId: string): Promise<ShopType> => {
 
   return await response.json();
 };
+
+export const createPaymentIntent = async (
+    shopId: string,
+    cartItems: CartItemType[]
+  ): Promise<PaymentIntentResponse> => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/shops/${shopId}/orders/payment-intent`,
+      {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ cartItems }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error fetching payment intent");
+    }
+  
+    return response.json();
+  };

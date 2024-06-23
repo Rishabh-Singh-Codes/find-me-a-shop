@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LOGIN_BG } from "../utils/constants";
 import { z } from "zod";
 import { registerUserSchema } from "../../../shared/validation/user";
@@ -17,6 +17,9 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const queryClient =useQueryClient();
+  const location = useLocation();
+  const fromLocation = location?.state?.from || "/";
+  console.log('fromLocation', fromLocation, location)
 
   const {
     register,
@@ -35,7 +38,7 @@ const Register = () => {
         })
       );
       await queryClient.invalidateQueries("validateToken");
-      navigate("/");
+      navigate(fromLocation);
     },
     onError: (error: Error) => {
       console.log(error);
@@ -146,7 +149,7 @@ const Register = () => {
         <span className="flex flex-col md:flex-row items-center justify-between py-10">
           <span className="text-sm text-white md:flex flex-col">
             Already have an account?{" "}
-            <Link to="/sign-in" className="underline">
+            <Link to="/sign-in" state={{from: fromLocation}} className="underline">
               Sign In ↗
             </Link>
           </span>

@@ -27,7 +27,7 @@ const ShopDetails = () => {
     );
   }
 
-  console.log("category", category);
+//   console.log("category", category);
 
   return (
     <div className="flex flex-col flex-1">
@@ -51,7 +51,7 @@ const ShopDetails = () => {
       </div>
       <div className="flex flex-col md:w-3/5 mx-auto">
         <EdibleCategorySection category={category} setCategory={setCategory} />
-        <ItemList items={shop.categories[category]} />
+        <ItemList items={shop.categories[category]} shopId={shopId} category={category} />
       </div>
     </div>
   );

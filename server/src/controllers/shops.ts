@@ -37,3 +37,35 @@ export const getShopDetails = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const createPaymentIntent = async (req: Request, res: Response) => {
+  try {
+    const shopId = req.params.shopId.toString();
+    const cartItems = req.body;
+    const { userId } = req;
+
+    const {result, status} = await shopsService.createPaymentIntent(userId, shopId, cartItems);
+    return res.status(status).send(result);
+  } catch (error) {
+    console.log("Error: creating payment intent \n", error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const createShopOrder = async (req: Request, res: Response) => {
+  try {
+    const { body, userId } = req;
+    const shopId = req.params.shopId.toString();
+
+    const { status, result } = await shopsService.createShopOrder(
+      body,
+      userId,
+      shopId
+    );
+
+    res.status(status).send(result);
+  } catch (error) {
+    console.log("Error: booking hotel \n", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
