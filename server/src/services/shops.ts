@@ -44,8 +44,6 @@ const createPaymentIntent = async (
     };
   }
 
-  console.log('cartItems', cartItems)
-
   const totalCost = cartItems?.reduce((acc, curr) => {
     const categoryItems = shop.categories.get(curr.itemCategory);
 
@@ -76,6 +74,7 @@ const createPaymentIntent = async (
     metadata: {
       userId,
       shopId,
+      type: "coffeeShop"
     },
   });
 
@@ -143,6 +142,7 @@ const createShopOrder = async (
   const newOrder: OrderType = {
     ...body,
     userId,
+    shopId
   };
 
   const shop = await Shop.findOneAndUpdate(
@@ -174,7 +174,7 @@ const createShopOrder = async (
     return {
       status: 400,
       result: {
-        message: "Shop not found",
+        message: "User not found",
       },
     };
   }

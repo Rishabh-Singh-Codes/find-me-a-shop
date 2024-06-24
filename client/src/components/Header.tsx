@@ -9,8 +9,6 @@ const Header = () => {
     (state: RootStateType) => state
   );
 
-  console.log('isLoggedIn, items', isLoggedIn, items)
-
   const isRegisterOrLoginPage = ["/register", "/sign-in"].includes(
     location.pathname
   );

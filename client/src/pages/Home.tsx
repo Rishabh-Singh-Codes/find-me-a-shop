@@ -6,8 +6,6 @@ import ShopCard from "../components/ShopCard";
 const Home = () => {
   const { data: shops } = useQuery("getAllShops", apiClient.getAllShops);
 
-  console.log("shop", shops);
-
   return (
     <div>
       {shops && shops.length ? (

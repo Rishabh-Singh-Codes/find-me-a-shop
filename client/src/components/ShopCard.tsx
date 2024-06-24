@@ -24,7 +24,7 @@ const ShopCard = ({shop}: Props) => {
           {shop.locality}
         </span>
         <span className="text-white font-bold tracking-tight text-lg hidden group-hover:block">
-          {shop.costForTwo}
+          {shop.costForTwo} for two
         </span>
         <span className="text-white font-bold tracking-tight text-lg hidden group-hover:block">
           {Array.from({ length: shop.rating }).map((_, idx) => (

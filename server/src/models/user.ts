@@ -8,6 +8,7 @@ export type UserType = {
   password: string;
   firstName: string;
   lastName: string;
+  orders?: [OrderType];
 };
 
 const cartItemSchema = new mongoose.Schema<CartItemType>({
@@ -23,6 +24,7 @@ const orderSchema = new mongoose.Schema<OrderType>({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   userId: { type: String, required: true },
+  shopId: {type: String, require: true},
   totalCost: { type: Number, required: true },
   cartItems: [cartItemSchema],
 });

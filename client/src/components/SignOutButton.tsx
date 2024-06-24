@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { useDispatch } from "react-redux";
 import { showToast } from "../store/toastSlice";
+import { clearCart } from "@/store/cartSlice";
 
 const SignOutButton = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ const SignOutButton = () => {
           type: "SUCCESS",
         })
       );
+
+      dispatch(clearCart());
 
       await queryClient.invalidateQueries("validateToken");
     },

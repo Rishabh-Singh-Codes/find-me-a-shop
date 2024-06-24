@@ -2,6 +2,18 @@ import { Request, Response } from "express";
 import usersService from "../services/users";
 import { registerUserSchema } from "../../../shared/validation/user";
 
+export const fetchCurrentUser = async (req: Request, res: Response) => {
+  const {userId} = req;
+
+  try {
+    const {result, status} = await usersService.fetchCurrentUser(userId);
+    return res.status(status).json(result);
+  } catch (error) {
+    console.log("Error: fetching user data \n", error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+ }
+
 export const registerUser = async (req: Request, res: Response) => {
   const userData = req.body;
 
@@ -29,3 +41,16 @@ export const registerUser = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const fetchUserOrders = async (req: Request, res: Response) => {
+  const {userId} = req;
+
+  try {
+    const {status, result} = await usersService.fetchUserOrders(userId);
+
+    return res.status(status).json(result);
+  } catch (error) {
+    console.log("Error: fetching user orders \n", error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+}

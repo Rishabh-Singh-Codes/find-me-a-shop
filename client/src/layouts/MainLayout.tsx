@@ -29,15 +29,11 @@ const MainLayout = ({ children }: Props) => {
   );
 
   useEffect(() => {
-    // console.log("isSuccess", isSuccess);
-    // console.log("isError", isError);
     if (isError) {
-    //   console.log("inside if isError");
       dispatch(setUserLoggedOut());
     }
 
     if (isSuccess) {
-    //   console.log("inside if isSuccess");
       dispatch(setUserLoggedIn());
     }
   }, [dispatch, isError, isSuccess]);

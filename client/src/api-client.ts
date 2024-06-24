@@ -1,4 +1,5 @@
 import { PaymentIntentResponse } from "../../shared/validation/shop";
+import { OrderFormData } from "./components/OrderForm";
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import { CartItemType, ShopType } from "./utils/types";
@@ -86,25 +87,57 @@ export const getShopDetails = async (shopId: string): Promise<ShopType> => {
   return await response.json();
 };
 
+export const fetchCurrentUser = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching user");
+  }
+
+  return response.json();
+};
+
 export const createPaymentIntent = async (
-    shopId: string,
-    cartItems: CartItemType[]
-  ): Promise<PaymentIntentResponse> => {
-    const response = await fetch(
-      `${API_BASE_URL}/api/shops/${shopId}/orders/payment-intent`,
-      {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({ cartItems }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  
-    if (!response.ok) {
-      throw new Error("Error fetching payment intent");
+  shopId: string,
+  cartItems: CartItemType[]
+): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/shops/${shopId}/orders/payment-intent`,
+    {
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ cartItems }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
-  
-    return response.json();
-  };
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching payment intent");
+  }
+
+  return response.json();
+};
+
+export const createShopOrder = async (formData: OrderFormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/shops/${formData.shopId}/orders`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error creating order");
+  }
+
+  return response.json();
+};

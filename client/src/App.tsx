@@ -12,6 +12,8 @@ import ShopDetails from "./pages/ShopDetails";
 import { useSelector } from "react-redux";
 import { RootStateType } from "./store/store";
 import Cart from "./pages/Cart";
+import Order from "./pages/Order";
+import UserOrders from "./pages/UserOrders";
 
 function App() {
   const isLoggedIn = useSelector(
@@ -59,6 +61,22 @@ function App() {
               element={
                 <MainLayout>
                   <Cart />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/shop/:shopId/order"
+              element={
+                <MainLayout>
+                  <Order />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/my-orders"
+              element={
+                <MainLayout>
+                  <UserOrders />
                 </MainLayout>
               }
             />

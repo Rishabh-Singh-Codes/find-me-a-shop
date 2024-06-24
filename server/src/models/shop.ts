@@ -51,6 +51,7 @@ const orderSchema = new mongoose.Schema<OrderType>({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   userId: { type: String, required: true },
+  shopId: { type: String, required: true },
   totalCost: { type: Number, required: true },
   cartItems: [cartItemSchema],
 });
