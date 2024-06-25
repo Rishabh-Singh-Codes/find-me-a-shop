@@ -5,9 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { FaCircleInfo } from "react-icons/fa6";
+import { FaCcStripe } from "react-icons/fa";
 import {
   OrderType,
   PaymentIntentResponse,
+  ShopType,
 } from "../../../shared/validation/shop";
 import { UserType } from "../../../shared/validation/user";
 import { useDispatch } from "react-redux";
@@ -19,6 +21,7 @@ import { clearCart } from "@/store/cartSlice";
 type Props = {
   currentUser: UserType;
   cartItems: CartItemType[];
+  shop: ShopType;
   paymentIntent: PaymentIntentResponse;
 };
 
@@ -26,7 +29,7 @@ export type OrderFormData = OrderType & {
   paymentIntentId: string;
 };
 
-const OrderForm = ({ currentUser, cartItems, paymentIntent }: Props) => {
+const OrderForm = ({ currentUser, cartItems, paymentIntent, shop }: Props) => {
   const { shopId } = useParams();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -52,7 +55,10 @@ const OrderForm = ({ currentUser, cartItems, paymentIntent }: Props) => {
       email: currentUser.email,
       cartItems: cartItems,
       shopId: shopId,
+      shopName: shop.name,
+      shopLocality: shop.locality,
       totalCost: paymentIntent.totalCost,
+      createdAt: new Date(),
       paymentIntentId: paymentIntent.paymentIntentId,
     },
   });
@@ -66,8 +72,6 @@ const OrderForm = ({ currentUser, cartItems, paymentIntent }: Props) => {
     if (!stripe || !elements) {
       return;
     }
-
-    console.log('formData', formData)
 
     setPaymentInProcess(true);
     const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
@@ -139,20 +143,26 @@ const OrderForm = ({ currentUser, cartItems, paymentIntent }: Props) => {
         </div>
 
         <div className="space-y-1">
-          <div className="flex items-center">
-            <h2 className="text-lg font-semibold flex items-center">
-              Payment Details &nbsp;
-            </h2>
-            <div className="group flex relative">
-              <FaCircleInfo className="animate-bounce text-lg" />
-              <span
-                className="group-hover:opacity-100 transition-opacity bg-gray-800 p-3 text-xs text-gray-100 rounded-md absolute 
-    translate-x-5 -translate-y-24 opacity-0 m-4 mx-auto w-80"
-              >
-                <span className="block font-semibold">Testing?</span>
-                💳 Use Card No.: 4000003560000008, any future date for MM/YY &
-                any 3 digits for CVC.
-              </span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <h2 className="text-lg font-semibold flex items-center">
+                Payment Details &nbsp;
+              </h2>
+              <div className="group flex relative">
+                <FaCircleInfo className="animate-bounce text-lg" />
+                <span
+                  className="group-hover:opacity-100 transition-opacity bg-gray-800 p-3 text-xs text-gray-100 rounded-md absolute 
+    translate-x-5 -translate-y-24 opacity-0 m-4 mx-auto md:w-80"
+                >
+                  <span className="block font-semibold">Testing?</span>
+                  💳 Use Card No.: 4000003560000008, any future date for MM/YY &
+                  any 3 digits for CVC.
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <span className="text-sm font-bold mr-2">Powered by</span>
+              <FaCcStripe className="text-4xl md:text-6xl" />
             </div>
           </div>
           <CardElement

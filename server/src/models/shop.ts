@@ -46,14 +46,17 @@ const itemSchema = new mongoose.Schema<ItemType>({
   image: { type: String },
 });
 
-const orderSchema = new mongoose.Schema<OrderType>({
+export const orderSchema = new mongoose.Schema<OrderType>({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   userId: { type: String, required: true },
   shopId: { type: String, required: true },
+  shopName: {type: String, required: true},
+  shopLocality: {type: String, required: true},
   totalCost: { type: Number, required: true },
   cartItems: [cartItemSchema],
+  createdAt: { type: Date, required: true },
 });
 
 const shopSchema = new mongoose.Schema<ShopType>({

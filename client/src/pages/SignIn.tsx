@@ -17,7 +17,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const fromLocation = location?.state?.from || "/";
-  console.log('fromLocation', fromLocation, location)
 
   const {
     register,
@@ -29,7 +28,6 @@ const SignIn = () => {
 
   const mutation = useMutation(apiClient.signInUser, {
     onSuccess: async () => {
-      console.log("user logged in");
       dispatch(
         showToast({
           message: "Login Successful",
@@ -47,7 +45,6 @@ const SignIn = () => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log("data", data);
     mutation.mutate(data);
   });
 

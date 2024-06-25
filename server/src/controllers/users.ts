@@ -42,15 +42,3 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
-export const fetchUserOrders = async (req: Request, res: Response) => {
-  const {userId} = req;
-
-  try {
-    const {status, result} = await usersService.fetchUserOrders(userId);
-
-    return res.status(status).json(result);
-  } catch (error) {
-    console.log("Error: fetching user orders \n", error);
-    return res.status(500).json({ message: "Something went wrong" });
-  }
-}

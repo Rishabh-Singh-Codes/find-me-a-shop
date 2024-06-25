@@ -15,3 +15,5 @@ export const loginUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, "Password must be atleast 6 characters long"),
 });
+
+export type UserType = z.infer<typeof registerUserSchema>;

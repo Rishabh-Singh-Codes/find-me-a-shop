@@ -5,9 +5,10 @@ import SignOutButton from "./SignOutButton";
 
 const Header = () => {
   const location = useLocation();
-  const {auth: {isLoggedIn}, cart: {items}} = useSelector(
-    (state: RootStateType) => state
-  );
+  const {
+    auth: { isLoggedIn },
+    cart: { items },
+  } = useSelector((state: RootStateType) => state);
 
   const isRegisterOrLoginPage = ["/register", "/sign-in"].includes(
     location.pathname
@@ -27,7 +28,10 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <Link
-                className="flex items-center px-3 font-bold hover:text-teal-600 rounded-md"
+                className={`flex items-center px-3 font-bold transition-all hover:text-teal-600 ${
+                  items.length > 0 &&
+                  "animate-border bg-gradient-to-r from-teal-500 via-purple-400 to-orange-400 bg-[length:400%_400%] text-white hover:text-white rounded-md hover:shadow-xl"
+                }`}
                 to="/cart"
               >
                 Cart{items.length > 0 && `(${items.length})`}

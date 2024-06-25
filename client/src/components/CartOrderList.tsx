@@ -3,9 +3,11 @@ import { HiOutlineMinusCircle } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { ShopType } from "../../../shared/validation/shop";
 
 type Props = {
   cartItems: CartItemType[];
+  shop: ShopType;
   totalPrice: number;
   shopId: string;
   handleAddItem: (item: CartItemType) => void;
@@ -15,6 +17,7 @@ type Props = {
 
 const CartOrderList = ({
   cartItems,
+  shop,
   totalPrice,
   shopId,
   handleAddItem,
@@ -22,7 +25,7 @@ const CartOrderList = ({
   handleClearCart,
 }: Props) => {
   return (
-    <div className="w-2/3 m-auto my-6 pl-20">
+    <div className="">
       <h1
         className={`text-3xl font-bold text-center flex items-center ${
           cartItems.length > 0 ? "justify-between" : "justify-center"
@@ -95,7 +98,7 @@ const CartOrderList = ({
           <div className="flex justify-center mt-3">
             <Link
               to={`/shop/${shopId}/order`}
-              state={{ cartItems }}
+              state={{ cartItems, shop }}
               className="bg-teal-600 px-4 py-2 text-white hover:cursor-pointer hover:bg-teal-700 rounded-md font-semibold transition-all"
             >
               Proceed to Pay

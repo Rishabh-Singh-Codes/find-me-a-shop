@@ -27,8 +27,6 @@ const ShopDetails = () => {
     );
   }
 
-//   console.log("category", category);
-
   return (
     <div className="flex flex-col flex-1">
       <div>
@@ -38,20 +36,27 @@ const ShopDetails = () => {
             Cost for two: {shop.costForTwo}
           </h2>
         </div>
-        <div className="flex mt-2 items-center justify-center md:justify-start">
-          <span className="text-sm font-bold flex items-center">
-            {shop.locality}&nbsp;|&nbsp;
-          </span>
-          <span className="flex items-center">
-            {Array.from({ length: shop.rating }).map((_, idx) => (
-              <FaStar className="fill-orange-400 inline" key={idx} />
-            ))}
-          </span>
+        <div className="flex flex-col md:flex-row mt-2 items-center justify-center md:justify-between">
+          <div className="flex">
+            <span className="text-sm font-bold flex items-center">
+              {shop.locality}&nbsp;|&nbsp;
+            </span>
+            <span className="flex items-center">
+              {Array.from({ length: shop.rating }).map((_, idx) => (
+                <FaStar className="fill-orange-400 inline" key={idx} />
+              ))}
+            </span>
+          </div>
+          <span className="text-xs font-semibold">{shop.address}</span>
         </div>
       </div>
       <div className="flex flex-col md:w-3/5 mx-auto">
         <EdibleCategorySection category={category} setCategory={setCategory} />
-        <ItemList items={shop.categories[category]} shopId={shopId} category={category} />
+        <ItemList
+          items={shop.categories[category]}
+          shopId={shopId}
+          category={category}
+        />
       </div>
     </div>
   );

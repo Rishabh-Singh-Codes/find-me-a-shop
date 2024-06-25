@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
@@ -6,6 +6,7 @@ import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
 import shopRoutes from "./routes/shops"
 import cookieParser from "cookie-parser";
+import path from "path";
 
 const PORT = 8080;
 
@@ -25,9 +26,15 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(express.static(path.join(__dirname, "../../../../client/dist")));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
+
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../../../client/dist/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

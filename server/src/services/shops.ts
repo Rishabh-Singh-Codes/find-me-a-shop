@@ -25,7 +25,7 @@ const getAllShops = async () => {
 };
 
 const getShopDetails = async (shopId: string) => {
-  const shopDetails = await Shop.findById(shopId);
+  const shopDetails = await Shop.findById(shopId).select("-orders");
   return shopDetails;
 };
 

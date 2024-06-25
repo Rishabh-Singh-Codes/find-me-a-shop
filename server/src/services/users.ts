@@ -54,29 +54,7 @@ const fetchCurrentUser = async (userId: string) => {
   };
 };
 
-const fetchUserOrders = async (userId: string) => {
-  const user = await User.findById(userId);
-
-  if(!user?.orders) {
-    return {
-      status: 400,
-      result: {
-        message: "No orders for current user"
-      }
-    }
-  }
-
-  // Need to update this
-  return {
-    status: 200,
-    result: {
-      message: "No orders for current user"
-    }
-  }
-}
-
 export default {
   registerUser,
   fetchCurrentUser,
-  fetchUserOrders
 };

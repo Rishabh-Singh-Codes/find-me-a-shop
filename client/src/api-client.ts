@@ -1,10 +1,10 @@
-import { PaymentIntentResponse } from "../../shared/validation/shop";
+import { PaymentIntentResponse, ShopType } from "../../shared/validation/shop";
 import { OrderFormData } from "./components/OrderForm";
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { CartItemType, ShopType } from "./utils/types";
+import { CartItemType  } from "./utils/types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const registerUser = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {

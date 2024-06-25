@@ -22,8 +22,6 @@ const ItemList = ({ items, shopId, category }: Props) => {
   const location = useLocation();
 
   const handleAddItem = (item: ItemSchema) => {
-    console.log("item", item);
-
     if (!isLoggedIn) {
       dispatch(
         showToast({
@@ -78,8 +76,8 @@ const ItemList = ({ items, shopId, category }: Props) => {
                 </div>
               )}
             </div>
-            <div className="text-sm">{item.price}</div>
-            <div className="text-xs">{item.description}</div>
+            <div className="text-sm">{item.price} | {item.nutritionalInfo}</div>
+            <div className="text-xs mt-3">{item.description}</div>
           </div>
           <div className="w-3/12 flex justify-end">
             <div>

@@ -38,14 +38,12 @@ const MainLayout = ({ children }: Props) => {
     }
   }, [dispatch, isError, isSuccess]);
 
-  const isRegisterOrLoginPage = ["/register", "/sign-in"].includes(
-    location.pathname
-  );
+  const isRegisterOrLoginPage = location.pathname === "/";
 
   return (
     <div className="flex flex-col min-h-screen text-teal-900">
       <Header />
-      {/* {!isRegisterOrLoginPage && <Hero />} */}
+      {isRegisterOrLoginPage && <Hero />}
       <div className="container flex-1 mx-auto">
         {toast && (
           <Toast

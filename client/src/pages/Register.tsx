@@ -19,7 +19,6 @@ const Register = () => {
   const queryClient =useQueryClient();
   const location = useLocation();
   const fromLocation = location?.state?.from || "/";
-  console.log('fromLocation', fromLocation, location)
 
   const {
     register,

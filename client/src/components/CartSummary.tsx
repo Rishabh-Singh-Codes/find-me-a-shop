@@ -2,7 +2,7 @@ import { CartItemType } from "@/utils/types";
 
 const CartSummary = ({cartItems}: {cartItems: CartItemType[]}) => {
   return (
-    <div className="w-1/3">
+    <div>
       <h1 className="text-3xl font-bold text-center flex items-center px-6">
         Cart
       </h1>

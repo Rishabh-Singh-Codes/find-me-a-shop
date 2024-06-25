@@ -22,14 +22,11 @@ const Cart = () => {
     }
   );
 
-  //   console.log("shop", shop);
-
   const totalPrice = cartItems.reduce((acc, curr) => {
     return (acc += Number(curr.itemPrice.split("₹")[1]) * curr.itemQty);
   }, 0);
 
   const handleDeleteItem = (item: CartItemType) => {
-    // console.log("item", item);
     dispatch(removeItem({ itemId: item.itemId }));
   };
 
@@ -65,16 +62,21 @@ const Cart = () => {
           </h2>
         </div>
       ) : (
-        <div className="flex">
-          <CartShopDetails shop={shop} />
-          <CartOrderList
-            cartItems={cartItems}
-            totalPrice={totalPrice}
-            shopId={shop._id}
-            handleAddItem={handleAddItem}
-            handleDeleteItem={handleDeleteItem}
-            handleClearCart={handleClearCart}
-          />
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/3 mt-6">
+            <CartShopDetails shop={shop} />
+          </div>
+          <div className="md:w-2/3 md:m-auto my-6 md:pl-20">
+            <CartOrderList
+              cartItems={cartItems}
+              shop={shop}
+              totalPrice={totalPrice}
+              shopId={shop._id}
+              handleAddItem={handleAddItem}
+              handleDeleteItem={handleDeleteItem}
+              handleClearCart={handleClearCart}
+            />
+          </div>
         </div>
       )}
     </>

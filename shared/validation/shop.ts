@@ -11,6 +11,31 @@ const itemSchema = z.object({
   image: z.string().optional(),
 });
 
+const cartItemSchema = z.object({
+    itemId: z.string().min(1, "Item ID is required"),
+    itemName: z.string().min(1, "Item Name is required"),
+    itemQty: z
+      .number()
+      .int()
+      .positive("Item Quantity must be a positive integer"),
+    itemPrice: z.string().min(1, "Item Price is required"),
+    itemCategory: z.string().min(1, "Item Category is required"),
+  });
+
+const orderSchema = z.object({
+    _id: z.string(),
+    userId: z.string(),
+    shopId: z.string(),
+    shopName: z.string(),
+    shopLocality: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string(),
+    cartItems: z.array(cartItemSchema),
+    totalCost: z.number(),
+    createdAt: z.date(),
+})
+
 const shopSchema = z.object({
   _id: z.string(),
   name: z.string().min(1, "Name is required"),
@@ -23,17 +48,7 @@ const shopSchema = z.object({
   createdAt: z.date(),
   lastUpdatedAt: z.date(),
   categories: z.record(z.array(itemSchema)),
-});
-
-const cartItemSchema = z.object({
-  itemId: z.string().min(1, "Item ID is required"),
-  itemName: z.string().min(1, "Item Name is required"),
-  itemQty: z
-    .number()
-    .int()
-    .positive("Item Quantity must be a positive integer"),
-  itemPrice: z.string().min(1, "Item Price is required"),
-  itemCategory: z.string().min(1, "Item Category is required"),
+  orders: z.array(orderSchema).optional(),
 });
 
 const cartStateSchema = z.object({
@@ -44,6 +59,7 @@ const cartStateSchema = z.object({
 export type CartItemType = z.infer<typeof cartItemSchema>;
 export type ShopItemType = z.infer<typeof itemSchema>;
 export type ShopType = z.infer<typeof shopSchema>;
+export type OrderType = z.infer<typeof orderSchema>;
 
 export type PaymentIntentResponse = {
   paymentIntentId: string;
@@ -51,15 +67,17 @@ export type PaymentIntentResponse = {
   totalCost: number;
 };
 
-export type OrderType = {
-  _id: string;
-  userId: string;
-  shopId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  cartItems: CartItemType[];
-  totalCost: number;
-};
+// export type OrderType = {
+//   _id: string;
+//   userId: string;
+//   shopId: string;
+//   shopName: string;
+//   shopLocality: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   cartItems: CartItemType[];
+//   totalCost: number;
+// };
 
 export { itemSchema, shopSchema, cartItemSchema, cartStateSchema };
