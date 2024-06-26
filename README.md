@@ -1,15 +1,16 @@
 <div align="center">
   <br/>
-  <h1><a href="">:coffee: :cookie: Find Me a Coffee Shop  :tea: :doughnut: </a></h1>
+  <h1><a href="https://find-me-a-coffee-shop.onrender.com/">:coffee: :cookie: Find Me a Coffee Shop  :tea: :doughnut: </a></h1>
   <p>
     <strong>A platform to explore the best coffee shops and pay for them.</strong>
   </p>
+<a href="https://find-me-a-coffee-shop.onrender.com/">Live Link ↗</a>
   <br/>
 </div>
 
 ## Demo Video
 [![Watch the video](https://github.com/Rishabh-Singh-Codes/find-me-a-shop/assets/86565216/4144acb0-345d-4b5c-b503-be20bdf8f465)](https://www.youtube.com/watch?v=Ll0pKgaRlPc)
-
+Video Link: [YouTube](https://www.youtube.com/watch?v=Ll0pKgaRlPc)
 
 
 ## Features
@@ -61,6 +62,9 @@ This dynamic, secure, and user-friendly website has the following features:
    - All the orders made by the user is shown here, with shop, cart items, order id, total and the time of order confirmation.
 > [!IMPORTANT]
 > If the user signs out at any point in the journey, the cart is cleared from session & application storage so that if any other user logs in, the do not see any stale data.
+
+> [!NOTE]
+> All the sensitive routes in client and server are protected.
 
 ## Tech Stack
 ![Tech Stack](https://skillicons.dev/icons?i=react,express,nodejs,mongodb,typescript,redux,tailwind,aws,git,html,css,javascript,github,vscode,postman)
