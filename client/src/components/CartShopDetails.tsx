@@ -14,7 +14,7 @@ const CartShopDetails = ({shop} : {shop: ShopType}) => {
               <img
                 src={shop.images[0]}
                 alt={shop.name}
-                className="rounded-xl object-cover"
+                className="rounded-xl object-cover max-h-48"
               />
               <h1 className="text-xl font-semibold mt-3">{shop.name}</h1>
               <div className="flex mt-2 items-center justify-start">

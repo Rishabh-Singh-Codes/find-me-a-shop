@@ -3,10 +3,11 @@ import shopsService from "../services/shops";
 
 export const addShop = async (req: Request, res: Response) => {
   const newShop = req.body;
+  const { userId } = req;
 
   try {
-    const shop = await shopsService.addShop(newShop);
-    return res.status(200).send(shop);
+    const { status, result } = await shopsService.addShop(newShop, userId);
+    return res.status(status).json(result);
   } catch (error) {
     console.log("Error: adding shop \n", error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -41,10 +42,14 @@ export const getShopDetails = async (req: Request, res: Response) => {
 export const createPaymentIntent = async (req: Request, res: Response) => {
   try {
     const shopId = req.params.shopId.toString();
-    const {cartItems} = req.body;
+    const { cartItems } = req.body;
     const { userId } = req;
 
-    const {result, status} = await shopsService.createPaymentIntent(userId, shopId, cartItems);
+    const { result, status } = await shopsService.createPaymentIntent(
+      userId,
+      shopId,
+      cartItems
+    );
     return res.status(status).send(result);
   } catch (error) {
     console.log("Error: creating payment intent \n", error);

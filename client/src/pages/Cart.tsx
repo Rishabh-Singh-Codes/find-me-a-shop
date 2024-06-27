@@ -66,7 +66,7 @@ const Cart = () => {
           <div className="md:w-1/3 mt-6">
             <CartShopDetails shop={shop} />
           </div>
-          <div className="md:w-2/3 md:m-auto my-6 md:pl-20">
+          <div className="md:w-2/3 mt-6 md:pl-20">
             <CartOrderList
               cartItems={cartItems}
               shop={shop}

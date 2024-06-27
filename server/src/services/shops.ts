@@ -9,14 +9,26 @@ import User from "../models/user";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
-const addShop = async (newShop: ShopType) => {
+const addShop = async (newShop: ShopType, userId: string) => {
+  const user = await User.findById(userId);
+
+  if (!user || !user?.isAdmin) {
+    return {
+      status: 400,
+      result: { message: "Unauthorized" },
+    };
+  }
+
   newShop.createdAt = new Date();
   newShop.lastUpdatedAt = new Date();
 
   const shop = new Shop(newShop);
   await shop.save();
 
-  return shop;
+  return {
+    status: 200,
+    result: shop,
+  };
 };
 
 const getAllShops = async () => {
@@ -74,7 +86,7 @@ const createPaymentIntent = async (
     metadata: {
       userId,
       shopId,
-      type: "coffeeShop"
+      type: "coffeeShop",
     },
   });
 
@@ -142,7 +154,7 @@ const createShopOrder = async (
   const newOrder: OrderType = {
     ...body,
     userId,
-    shopId
+    shopId,
   };
 
   const shop = await Shop.findOneAndUpdate(

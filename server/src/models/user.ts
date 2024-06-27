@@ -9,6 +9,7 @@ export type UserType = {
   password: string;
   firstName: string;
   lastName: string;
+  isAdmin?: boolean;
   orders?: [OrderType];
 };
 
@@ -17,6 +18,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  isAdmin: { type: Boolean },
   orders: [orderSchema],
 });
 

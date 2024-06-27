@@ -5,6 +5,7 @@ import { RootStateType } from "@/store/store";
 import { showToast } from "@/store/toastSlice";
 import { GrSquare } from "react-icons/gr";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa6";
 
 type Props = {
   items: ItemSchema[];
@@ -43,7 +44,12 @@ const ItemList = ({ items, shopId, category }: Props) => {
 
     dispatch(
       addItem({
-        item: { itemId: item._id, itemName: item.name, itemPrice: item.price, itemCategory: category },
+        item: {
+          itemId: item._id,
+          itemName: item.name,
+          itemPrice: item.price,
+          itemCategory: category,
+        },
         store: shopId,
       })
     );
@@ -76,7 +82,14 @@ const ItemList = ({ items, shopId, category }: Props) => {
                 </div>
               )}
             </div>
-            <div className="text-sm">{item.price} | {item.nutritionalInfo}</div>
+            <div className="text-sm">
+              {item.price} | {item.nutritionalInfo}
+            </div>
+            <div className="text-xs">
+              {Array.from({ length: item.rating }).map((_, idx) => (
+                <FaStar className="fill-orange-400 inline" key={idx} />
+              ))}
+            </div>
             <div className="text-xs mt-3">{item.description}</div>
           </div>
           <div className="w-3/12 flex justify-end">
@@ -84,7 +97,7 @@ const ItemList = ({ items, shopId, category }: Props) => {
               {item.image && (
                 <div className="absolute">
                   <button
-                    className="bg-white text-teal-600 font-semibold relative left-3 md:left-8 top-20 md:top-28 px-2 rounded-lg border-2 border-teal-600"
+                    className="bg-white text-teal-600 font-semibold relative left-8 md:left-10 top-20 md:top-28 px-2 rounded-lg border-2 border-teal-600"
                     onClick={() => handleAddItem(item)}
                   >
                     ADD +
@@ -103,7 +116,7 @@ const ItemList = ({ items, shopId, category }: Props) => {
               )}
               {item.image && (
                 <img
-                  className="w-full h-24 md:h-32 object-cover rounded-lg"
+                  className="w-full min-w-32 max-h-24 md:max-h-32 md:min-w-36 md:h-32 object-cover rounded-lg"
                   src={item.image}
                 />
               )}
