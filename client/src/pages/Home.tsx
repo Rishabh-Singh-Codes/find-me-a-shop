@@ -4,7 +4,7 @@ import * as apiClient from "../api-client";
 import ShopCard from "../components/ShopCard";
 
 const Home = () => {
-  const { data: shops } = useQuery("getAllShops", apiClient.getAllShops);
+  const { data: shops } = useQuery("getAllShops", apiClient.getAllShops, {refetchInterval: 5 * 60 * 1000});
 
   return (
     <div>
