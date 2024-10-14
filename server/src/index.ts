@@ -4,9 +4,10 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
-import shopRoutes from "./routes/shops"
+import shopRoutes from "./routes/shops";
 import cookieParser from "cookie-parser";
 import path from "path";
+import cron from "node-cron";
 
 const PORT = 8080;
 
@@ -21,10 +22,12 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "../../../../client/dist")));
 
@@ -38,4 +41,20 @@ app.get("*", (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+const url = "https://find-me-a-coffee-shop.onrender.com/";
+
+cron.schedule("*/14 * * * *", async () => {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      console.log(`HTTP error while pinging at ${new Date()}`);
+    }
+
+    console.log(`Successfully pinged at ${new Date()}`);
+  } catch (error) {
+    console.log(`error while pinging at ${new Date()}`, error);
+  }
 });
