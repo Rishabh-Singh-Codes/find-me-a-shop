@@ -45,7 +45,7 @@ app.listen(PORT, () => {
 
 const url = "https://find-me-a-coffee-shop.onrender.com/";
 
-cron.schedule("*/14 * * * *", async () => {
+cron.schedule("*/10 * * * *", async () => {
   try {
     const response = await fetch(url);
 
